@@ -1,8 +1,15 @@
+bazel
+cmake
 coreutils
 gnupg
 neovim
+ninja
+npm
 openssh
 pandoc
+python
+rustup
+sqlite
 texlive
 tree
 ykman
