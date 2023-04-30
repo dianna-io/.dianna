@@ -17,6 +17,11 @@ if [ -d '/opt/homebrew' ]; then
   export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 fi
 
+# .local/bin (e.g. for pipx)
+if [ -d "$HOME/.local/bin" ]; then
+  export PATH="$PATH:$HOME/.local/bin"
+fi
+
 # custom scripts
 if [ -d "$HOME/develop/scripts/bin" ]; then
   export PATH="$PATH:$HOME/develop/scripts/bin"
