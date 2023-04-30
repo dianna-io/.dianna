@@ -4,6 +4,9 @@
 ## globals
 ##
 
+export DOTME="$HOME/.dianna"
+export DOTME_EXTERN="$DOTME/.external"
+
 ### LANG
 export LANG=en_US.UTF-8
 
@@ -23,6 +26,9 @@ fi
 # note: works around terminal i/o issues for PIN input in certain cases
 export GPG_TTY=$(tty)
 
+### LS_COLORS
+source $DOTME_EXTERN/LS_COLORS/lscolors.sh
+
 ### ZSH
 
 # oh-my-zsh (if installed)
@@ -37,7 +43,7 @@ fi
 if [[ $ZSH =~ "oh-my-zsh" ]]; then
 
   ### custom folder
-  ZSH_CUSTOM="$HOME/.dianna/.oh-my-zsh"
+  ZSH_CUSTOM="$DOTME/.oh-my-zsh"
 
   ### theme
   ZSH_THEME="minimally.gay"
@@ -72,7 +78,7 @@ alias edit='nvim'
 
 ### builtins
 alias cp='cp -vi'
-alias ls='ls -la'
+alias ls='gls -la --color=auto'
 alias mv='mv -vi'
 alias rm='rm -viI'
 
