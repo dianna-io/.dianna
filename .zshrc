@@ -1,6 +1,62 @@
 # (dianna) .dianna/.zshrc
 
 ##
+## globals
+##
+
+### LANG
+export LANG=en_US.UTF-8
+
+### PATH
+
+# homebrew
+if [ -d '/opt/homebrew' ]; then
+  export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+fi
+
+# custom scripts
+if [ -d "$HOME/develop/scripts/bin" ]; then
+  export PATH="$PATH:$HOME/develop/scripts/bin"
+fi
+
+### GnuPG TTY support
+# note: works around terminal i/o issues for PIN input in certain cases
+export GPG_TTY=$(tty)
+
+### ZSH
+
+# oh-my-zsh (if installed)
+if [ -d "$HOME/.oh-my-zsh" ]; then
+  export ZSH="$HOME/.oh-my-zsh"
+fi
+
+##
+## oh-my-zsh (if installed)
+##
+
+if [[ $ZSH =~ "oh-my-zsh" ]]; then
+
+  ### theme
+  ZSH_THEME="minimal"
+
+  ### completions
+  CASE_SENSITIVE="true"
+
+  ### date format
+  HIST_STAMPS="dd.mm.yyyy"
+
+  ### plugins
+  plugins=(git)
+
+  ### autoupdates
+  zstyle ':omz:update' mode disabled
+
+  ### finalize
+  source $ZSH/oh-my-zsh.sh
+
+fi
+
+##
 ## preferences
 ##
 
@@ -20,23 +76,3 @@ alias rm='rm -viI'
 ### overrides
 # yes... sometimes I screw up
 alias ed="$EDITOR"
-
-##
-## globals
-##
-
-### PATH
-
-# custom scripts
-if [ -d "$HOME/develop/scripts/bin" ]; then
-  path+=("$HOME/develop/scripts/bin")
-fi
-
-# homebrew
-if [ -d '/opt/homebrew' ]; then
-  export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
-fi
-
-### GnuPG TTY support
-# note: works around terminal i/o issues for PIN input in certain cases
-export GPG_TTY=$(tty)
