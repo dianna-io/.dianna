@@ -1,47 +1,9 @@
 # (dianna) .dianna/.gitconfig
 
-##
-## Identity
-##
+# avoid messing up brew
+[includeIf "gitdir:/opt/homebrew"]
+  path = ~/.dianna/.gitconfig-empty
 
-[user]
-	email = dianna@code.dianna.io
-	name = dianna
-	signingkey = 0x5CC3659352B647D2!
-
-##
-## Preferences
-##
-
-[alias]
-	a = add
-	aa = add -A
-	ai = add --intent-to-add
-	b = branch
-	c = checkout
-	d = diff
-	l = log
-	r = rebase
-	ri = rebase --interactive
-	rc = rebase -c
-	s = status
-	x = commit --signoff --gpg-sign
-
-[color]
-	ui = auto
-
-[commit]
-	gpgsign = true
-
-[core]
-	editor = nvim
-	excludesfile = ~/.dianna/.gitignore
-	pager = less -FS
-
-##
-## Overrides
-##
-
-### Github
-[url "ssh://git@github.com/"]
-	insteadOf = https://github.com/
+# otherwise...
+[includeIf "gitdir:~/**"]
+  path = ~/.dianna/.gitconfig-global
