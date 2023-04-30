@@ -1,6 +1,7 @@
 bazel
 cmake
 coreutils
+gh
 gnupg
 neovim
 ninja
