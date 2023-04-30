@@ -8,6 +8,7 @@ ninja
 npm
 openssh
 pandoc
+pipx
 python
 rustup
 sqlite
