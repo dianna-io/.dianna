@@ -36,8 +36,11 @@ fi
 
 if [[ $ZSH =~ "oh-my-zsh" ]]; then
 
+  ### custom folder
+  ZSH_CUSTOM="$HOME/.dianna/.oh-my-zsh"
+
   ### theme
-  ZSH_THEME="minimal"
+  ZSH_THEME="minimally.gay"
 
   ### completions
   CASE_SENSITIVE="true"
