@@ -48,3 +48,7 @@
 ### Github
 [url "ssh://git@github.com/"]
 	insteadOf = https://github.com/
+
+### Gitlab
+[url "ssh://git@gitlab.com/"]
+	insteadOf = https://gitlab.com/
