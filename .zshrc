@@ -17,6 +17,11 @@ if [ -d '/opt/homebrew' ]; then
   export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 fi
 
+# .cargo/env setup (for rust toolchains)
+if [ -e "$HOME/.cargo/env" ]; then
+  source "$HOME/.cargo/env"
+fi
+
 # .local/bin (e.g. for pipx)
 if [ -d "$HOME/.local/bin" ]; then
   export PATH="$PATH:$HOME/.local/bin"
