@@ -10,6 +10,7 @@ openssh
 pandoc
 pipx
 python
+ripgrep
 rustup
 sqlite
 texlive
