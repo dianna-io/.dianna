@@ -32,6 +32,41 @@
 
 [color]
 	ui = auto
+	pager = true
+	showBranch = true
+
+[color.branch]
+	current = 228
+
+[color.decorate]
+	branch = 228
+	remoteBranch = 203
+	tag = 213
+	stash = 213
+	HEAD = 69
+
+[color.diff]
+	old = 203
+	new = 156
+	frag = 213
+
+[color.grep]
+	context = white
+	filename = 188
+	match = 203
+
+[color.interactive]
+	prompt = 213
+	header = 69
+	help = white
+	error = 203
+
+[color.status]
+	branch = 228
+	added = 156
+	changed = 69
+	untracked = 203
+	header = white
 
 [commit]
 	gpgsign = true

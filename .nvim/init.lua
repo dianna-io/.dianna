@@ -44,7 +44,7 @@ require('lazy').setup({
       'williamboman/mason-lspconfig.nvim',
 
       -- language server live status updates
-      'j-hui/fidget.nvim',
+      { 'j-hui/fidget.nvim', tag = "legacy" },
     },
   },
 
@@ -112,6 +112,15 @@ require('lazy').setup({
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     build = ':TSUpdate',
+  },
+
+  -- file browser
+  {
+    'nvim-telescope/telescope-file-browser.nvim',
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+      'nvim-lua/plenary.nvim',
+    },
   },
 
   -- TODO(dianna): continue exploring this
@@ -196,6 +205,11 @@ require('telescope').setup {
       },
     },
   },
+  extensions = {
+    file_browser = {
+      hidden = { file_browser = true, folder_browser = true },
+    },
+  },
 }
 
 -- Enable telescope fzf native, if installed
@@ -218,6 +232,7 @@ vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set('n', '<leader>fb', require('telescope').extensions.file_browser.file_browser, { desc = '[F]ile [B]rowser'})
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -343,7 +358,6 @@ end
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
   -- clangd = {},
-  -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
@@ -363,28 +377,30 @@ local servers = {
 require('fidget').setup()
 
 require("noirbuddy").setup {
-  -- theme:noir-gay
+  -- minimally.gay on shift-left gray scale
   colors = {
     background = '#121212',
-    primary = '#ababab',
-    secondary = '#ee5cee',
-    noir_0 = '#ffffff',
-    noir_1 = '#f5f5f5',
-    noir_2 = '#d5d5d5',
-    noir_3 = '#b4b4b4',
-    noir_4 = '#a7a7a7',
-    noir_5 = '#949494',
-    noir_6 = '#737373',
-    noir_7 = '#535353',
-    noir_8 = '#323232',
-    noir_9 = '#212121',
-    diagnostic_error = '#ee5c5c',
-    diagnostic_warning = '#eeee5c',
-    diagnostic_info = '#5ceeee',
-    diagnostic_hint = '#5ceece',
-    diff_add = '#5cee72',
-    diff_change = '#5c92ee',
-    diff_delete = '#ee5c5c',
+    primary = '#f8f8f8',
+    secondary = '#848484',
+
+    noir_0 = "#fcfcfc",
+    noir_1 = "#f8f8f8",
+    noir_2 = "#f1f1f1",
+    noir_3 = "#eaeaea",
+    noir_4 = "#dfdfdf",
+    noir_5 = "#d2d2d2",
+    noir_6 = "#c1c1c1",
+    noir_7 = "#a9a9a9",
+    noir_8 = "#848484",
+    noir_9 = "#2b2b2b",
+
+    diagnostic_error = '#f04444',
+    diagnostic_warning = '#f5ee90',
+    diagnostic_info = '#4880f0',
+    diagnostic_hint = '#9f65f1',
+    diff_add = '#a2f47c',
+    diff_change = '#4880f0',
+    diff_delete = '#f04444',
   },
 }
 
@@ -400,6 +416,8 @@ require('lualine').setup {
   sections = noirbuddy_lualine.sections,
   inactive_sections = noirbuddy_lualine.inactive_sections,
 }
+
+
 
 -- Setup neovim lua configuration
 
