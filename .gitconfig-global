@@ -1,0 +1,95 @@
+# (dianna) .dianna/.gitconfig-global
+#
+# notes:
+#   personal global git config
+
+##
+## Identity
+##
+
+[user]
+	email = dianna@code.dianna.io
+	name = dianna
+	signingkey = key::ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPvUrzBytwu/KFOpaUVrbP75jiV3z8DiAtSpX9JDhEx+
+
+##
+## Preferences
+##
+
+[alias]
+	a = add
+	aa = add -A
+	ai = add --intent-to-add
+	b = branch
+	c = checkout
+	d = diff
+	l = log
+	r = rebase
+	ri = rebase --interactive
+	rc = rebase -c
+	s = status
+	x = commit --signoff --gpg-sign
+
+[color]
+	ui = auto
+	pager = true
+	showBranch = true
+
+[color.branch]
+	current = 230
+
+[color.decorate]
+	branch = 230
+	remoteBranch = 99
+	tag = 219
+	stash = 159
+	HEAD = 111
+
+[color.diff]
+	old = 217
+	new = 193
+	frag = 230
+
+[color.grep]
+	context = white
+	filename = 188
+	match = 203
+
+[color.interactive]
+	prompt = 230
+	header = 111
+	help = white
+	error = 217
+
+[color.status]
+	branch = 230
+	added = 193
+	changed = 111
+	untracked = 217
+	header = white
+
+[commit]
+	gpgsign = true
+
+[core]
+	editor = nvim
+	excludesfile = ~/.dianna/.gitignore
+	pager = less -FS
+
+[gpg]
+	format = ssh
+
+[gpg.ssh]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+
+##
+## Overrides
+##
+
+### Github
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
+
+### Gitlab
+[url "ssh://git@gitlab.com/"]
+	insteadOf = https://gitlab.com/

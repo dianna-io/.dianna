@@ -1,0 +1,45 @@
+# (dianna) .dianna/.gitignore
+
+##
+## Linux
+##
+
+*~
+.Trash-*
+.directory
+.fuse_hidden*
+.nfs*
+
+##
+## macOS
+##
+
+.AppleDB
+.AppleDesktop
+.AppleDouble
+.DS_Store
+.DocumentRevisions-V100
+.LSOverride
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+._*
+.apdisk
+.com.apple.timemachine.donotpresent
+.fseventsd
+Network Trash Folder
+Temporary Items
+
+##
+## Vim
+##
+
+*~
+.netrwhist
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]*.un~
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]

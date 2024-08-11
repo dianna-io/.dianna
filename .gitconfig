@@ -1,0 +1,15 @@
+# (dianna) .dianna/.gitconfig
+
+# avoid messing up brew
+[includeIf "gitdir:/opt/homebrew"]
+  path = ~/.dianna/.gitconfig-empty
+
+# avoid messing up cargo
+[includeIf "gitdir:~/.cargo/registry/**"]
+  path = ~/.dianna/.gitconfig-empty
+
+# otherwise...
+[includeIf "gitdir:~/.dianna/**"]
+  path = ~/.dianna/.gitconfig-global
+[includeIf "gitdir:~/develop/**"]
+  path = ~/.dianna/.gitconfig-global
