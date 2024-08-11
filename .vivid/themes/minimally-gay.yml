@@ -7,12 +7,12 @@ colors:
   darkergray: '474747'
   black: '101010'
 
-  red: 'f8a4a4'
-  green: 'c7f8ab'
-  yellow: 'fbfbc7'
-  blue: '99bbf7'
-  pink: 'f798f7'
-  cyan: 'a8f8f8'
+  red: 'ff6464'
+  green: 'c9ffa6'
+  yellow: 'ffff64'
+  blue: '5297ff'
+  pink: 'ff92ff'
+  cyan: 'a5ffff'
 
 core:
   normal_text: {}

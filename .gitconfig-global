@@ -36,36 +36,36 @@
 	showBranch = true
 
 [color.branch]
-	current = 230
+	current = yellow
 
 [color.decorate]
-	branch = 230
-	remoteBranch = 99
-	tag = 219
-	stash = 159
-	HEAD = 111
+	branch = yellow
+	remoteBranch = 141 # purple
+	tag = magenta
+	stash = cyan
+	HEAD = blue
 
 [color.diff]
-	old = 217
-	new = 193
-	frag = 230
+	old = red
+	new = green
+	frag = yellow
 
 [color.grep]
 	context = white
-	filename = 188
-	match = 203
+	filename = white
+	match = magenta
 
 [color.interactive]
-	prompt = 230
-	header = 111
+	prompt = yellow
+	header = blue
 	help = white
-	error = 217
+	error = red
 
 [color.status]
-	branch = 230
-	added = 193
-	changed = 111
-	untracked = 217
+	branch = yellow
+	added = green
+	changed = blue
+	untracked = red
 	header = white
 
 [commit]

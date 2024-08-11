@@ -390,14 +390,14 @@ require('fidget').setup()
 -- minimally gay theme
 require("noirbuddy").setup {
   colors = {
-    primary = '#f798f7',
-    diagnostic_error = '#f8a4a4',
-    diagnostic_warning = '#fbfbc7',
-    diagnostic_info = '#4880f0',
-    diagnostic_hint = '#c8adf9',
-    diff_add = '#c7f8ab',
-    diff_change = '#99bbf7',
-    diff_delete = '#f8a4a4',
+    primary = '#ff92ff', -- magenta
+    diagnostic_error = '#ff6464', -- red
+    diagnostic_warning = '#ffff64', -- yellow
+    diagnostic_info = '#5297ff', -- blue
+    diagnostic_hint = '#9147ff', -- purple
+    diff_add = '#c9ffa6', -- green
+    diff_change = '#5297ff', -- blue
+    diff_delete = '#ff6464', -- red
   },
 }
 
