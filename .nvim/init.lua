@@ -246,7 +246,7 @@ vim.keymap.set('n', '\\', function() vim.cmd("let @/ = ''") end, { desc = 'Clear
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'json', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
+  ensure_installed = { 'bash', 'c', 'cpp', 'json', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
 
   -- Autoinstall languages that are not installed
   auto_install = true,
@@ -322,7 +322,7 @@ require('actions-preview').setup {
     require('actions-preview.highlight').diff_so_fancy(),
   },
   backend = { 'telescope' },
-  telescope = require('telescope.themes').get_dropdown { winblend = 0 },
+  telescope = require('telescope.themes').get_ivy { winblend = 0 },
 }
 
 -- LSP configuration
@@ -361,11 +361,11 @@ end
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  -- clangd = {},
   -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
 
+  clangd = {},
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
