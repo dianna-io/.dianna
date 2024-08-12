@@ -197,6 +197,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
   defaults = {
+    sorting_strategy = 'ascending',
+    layout_strategy = 'vertical',
     mappings = {
       i = {
         ['<C-o>'] = require('telescope.actions').select_default,
@@ -229,12 +231,12 @@ pcall(require('telescope').load_extension, 'fzf')
 vim.keymap.set('n', '<leader>/', function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-    winblend = 0,
     previewer = false,
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
-vim.keymap.set('n', '<leader>fb', require('telescope').extensions.file_browser.file_browser, { desc = '[F]ile [B]rowser' })
-vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
+vim.keymap.set('n', '<leader>fb', require('telescope').extensions.file_browser.file_browser,
+  { desc = '[F]ile [B]rowser' })
+vim.keymap.set('n', '<leader>sf', require('telescope.builtin').git_files, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>s?', require('telescope.builtin').help_tags, { desc = '[S]earch Help [?]' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
@@ -309,7 +311,6 @@ require('nvim-treesitter.configs').setup {
 -- Diagnostic keymaps
 vim.keymap.set('n', 'ge', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', 'Ge', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', '<leader>oe', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- Action preview configuration
 require('actions-preview').setup {
@@ -322,7 +323,7 @@ require('actions-preview').setup {
     require('actions-preview.highlight').diff_so_fancy(),
   },
   backend = { 'telescope' },
-  telescope = require('telescope.themes').get_ivy { winblend = 0 },
+  telescope = require('telescope.themes').get_ivy(),
 }
 
 -- LSP configuration

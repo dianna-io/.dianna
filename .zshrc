@@ -87,7 +87,7 @@ alias edit='nvim'
 
 ### builtins
 alias cp='cp -vi'
-alias ls='gls -la --color=auto'
+alias ls='gls --color=auto'
 alias mv='mv -vi'
 alias rm='rm -viI'
 
