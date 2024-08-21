@@ -255,25 +255,18 @@ require('nvim-treesitter.configs').setup {
 
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = '<c-space>',
-      node_incremental = '<c-space>',
-      scope_incremental = '<c-s>',
-      node_decremental = '<M-space>',
-    },
-  },
+
   textobjects = {
     select = {
       enable = true,
       lookahead = true,
       keymaps = {
-        ['cp'] = '@parameter.inner',
-        ['Cp'] = '@parameter.outer',
-        ['cf'] = '@function.inner',
-        ['Cf'] = '@function.outer',
-        ['ct'] = '@class.inner',
+        ['yp'] = '@parameter.inner',
+        ['Yp'] = '@parameter.outer',
+        ['yf'] = '@function.inner',
+        ['Yf'] = '@function.outer',
+        ['yc'] = '@class.inner',
+        ['Yc'] = '@class.outer',
       },
     },
     move = {
@@ -281,19 +274,19 @@ require('nvim-treesitter.configs').setup {
       set_jumps = true,
       goto_next_start = {
         ['Gf'] = '@function.outer',
-        ['Gt'] = '@class.outer',
+        ['Gc'] = '@class.outer',
       },
       goto_next_end = {
         ['GF'] = '@function.outer',
-        ['GT'] = '@class.outer',
+        ['GC'] = '@class.outer',
       },
       goto_previous_start = {
         ['gf'] = '@function.outer',
-        ['gt'] = '@class.outer',
+        ['gc'] = '@class.outer',
       },
       goto_previous_end = {
         ['gF'] = '@function.outer',
-        ['gT'] = '@class.outer',
+        ['gC'] = '@class.outer',
       },
     },
     swap = {
@@ -309,8 +302,13 @@ require('nvim-treesitter.configs').setup {
 }
 
 -- Diagnostic keymaps
-vim.keymap.set('n', 'ge', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', 'Ge', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', 'Ge', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+vim.keymap.set('n', 'ge', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
+
+-- Tab keymaps
+vim.keymap.set('n', '<leader>Gt', function() vim.cmd('tabnext') end, { desc = 'Go to next tab' })
+vim.keymap.set('n', '<leader>gt', function() vim.cmd('tabprevious') end, { desc = 'Go to previous tab' })
+vim.keymap.set('n', '<leader>t', function() vim.cmd('tabnew') end, { desc = 'New tab' })
 
 -- Action preview configuration
 require('actions-preview').setup {
