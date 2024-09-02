@@ -7,6 +7,9 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- NB: Allow project specific configuration
+vim.opt.exrc = true
+
 --
 -- plugin management
 --
@@ -39,10 +42,6 @@ require('lazy').setup({
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      -- automatically install languages to stdpath for neovim
-      { 'williamboman/mason.nvim', config = true },
-      'williamboman/mason-lspconfig.nvim',
-
       -- language server live status updates
       { 'j-hui/fidget.nvim',       tag = "legacy" },
     },
@@ -305,7 +304,7 @@ require('nvim-treesitter.configs').setup {
 vim.keymap.set('n', 'Ge', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', 'ge', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 
--- Tab keymaps
+-- Tab / window keymaps
 vim.keymap.set('n', '<leader>Gt', function() vim.cmd('tabnext') end, { desc = 'Go to next tab' })
 vim.keymap.set('n', '<leader>gt', function() vim.cmd('tabprevious') end, { desc = 'Go to previous tab' })
 vim.keymap.set('n', '<leader>t', function() vim.cmd('tabnew') end, { desc = 'New tab' })
@@ -324,8 +323,9 @@ require('actions-preview').setup {
   telescope = require('telescope.themes').get_ivy(),
 }
 
+-- TODO(dianna): move these out to their own folder
 -- LSP configuration
-local lsp_attach = function(_, bufnr)
+local on_attach = function(_, bufnr)
   local nmap = function(keys, func, desc)
     if desc then
       desc = 'LSP: ' .. desc
@@ -353,24 +353,49 @@ local lsp_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
--- TODO: enable more language servers
--- Enable the following language servers
---  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
---
---  Add any additional override configuration in the following tables. They will be passed to
---  the `settings` field of the server config. You must look up that documentation yourself.
-local servers = {
-  -- pyright = {},
-  -- rust_analyzer = {},
-  -- tsserver = {},
+-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-  clangd = {},
-  lua_ls = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-    },
+require('lspconfig').lua_ls.setup {
+  on_init = function(client)
+    local path = client.workspace_folders[1].name
+    if vim.loop.fs_stat(path..'/.luarc.json') or vim.loop.fs_stat(path..'/.luarc.jsonc') then
+      return
+    end
+
+    client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+      runtime = {
+        -- Tell the language server which version of Lua you're using
+        -- (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT'
+      },
+      -- Make the server aware of Neovim runtime files
+      workspace = {
+        checkThirdParty = false,
+        library = {
+          vim.env.VIMRUNTIME
+          -- Depending on the usage, you might want to add additional paths here.
+          -- "${3rd}/luv/library"
+          -- "${3rd}/busted/library",
+        }
+        -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+        -- library = vim.api.nvim_get_runtime_file("", true)
+      }
+    })
+  end,
+  settings = {
+    Lua = {}
   },
+  capabilities = capabilities,
+  on_attach = on_attach,
+}
+
+require('lspconfig').clangd.setup {
+  cmd = { '/opt/homebrew/opt/llvm/bin/clangd' },
+  filetypes = { 'c', 'h', 'cc', 'hh', 'cpp', 'hpp', 'cxx', 'hxx', 'ixx', 'cppm', 'objc', 'objcpp', 'cuda' },
+  capabilities = capabilities,
+  on_attach = on_attach,
 }
 
 --
@@ -404,28 +429,7 @@ require('lualine').setup {
   inactive_sections = require('noirbuddy.plugins.lualine').inactive_sections,
 }
 
--- Setup neovim lua configuration
-
--- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
--- Ensure the servers above are installed
-require('mason-lspconfig').setup {
-  ensure_installed = vim.tbl_keys(servers),
-}
-
-require('mason-lspconfig').setup_handlers {
-  function(server_name)
-    require('lspconfig')[server_name].setup {
-      capabilities = capabilities,
-      on_attach = lsp_attach,
-      settings = servers[server_name],
-    }
-  end,
-}
-
--- [[ Configure nvim-cmp ]]
+-- Completion snippets
 -- See `:help cmp`
 require('luasnip.loaders.from_vscode').lazy_load()
 require('luasnip').config.setup {}
